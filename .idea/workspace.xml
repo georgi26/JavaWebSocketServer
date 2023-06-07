@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50280a45-e517-4ef6-a04d-cf84f4f649a6" name="Changes" comment="" />
+    <list default="true" id="50280a45-e517-4ef6-a04d-cf84f4f649a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/WSServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WSServerTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,7 +55,18 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="2Qsk1fvRtAPsr4zL3HIZIFj8nof" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,12 +74,19 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="com.biolabi.ws" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.biolabi.ws.Main" />

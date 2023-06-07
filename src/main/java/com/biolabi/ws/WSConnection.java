@@ -63,7 +63,7 @@ public class WSConnection implements Runnable{
         while(!closed && (read = is.read(buffer)) > 0){
             System.out.println("\n");
             WSDecoder decoder = new WSDecoder((buffer));
-            if(decoder.getOpcode() == WSDecoder.Opcode.CLOSE){
+            if(decoder.getOpcode() == Opcode.CLOSE){
                 this.close();
                 break;
             }

@@ -1,7 +1,4 @@
-import com.biolabi.ws.WSConnection;
-import com.biolabi.ws.WSDecoder;
-import com.biolabi.ws.WSException;
-import com.biolabi.ws.WSServer;
+import com.biolabi.ws.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.*;
@@ -34,14 +31,14 @@ public class WSServerTest {
     @Test
     void testDecodeFirst() throws WSException {
         WSDecoder decoder = new WSDecoder(new int[]{129, 131, 45, 15, 252, 34, 106, 72, 152});
-        WSDecoder.Opcode opcode = decoder.getOpcode();
-        assertEquals(WSDecoder.Opcode.TEXT,opcode);
+        Opcode opcode = decoder.getOpcode();
+        assertEquals(Opcode.TEXT,opcode);
         assertEquals(3,decoder.getLength());
         assertEquals(1,decoder.getMask());
         int [] data = decoder.getBinaryData();
         assertEquals(71,data[0]);
         assertEquals("GGd",decoder.getText());
         decoder = new WSDecoder(new int[]{ 136,  128,  142,  232,  6,  234 });
-        assertEquals(WSDecoder.Opcode.CLOSE, decoder.getOpcode());
+        assertEquals(Opcode.CLOSE, decoder.getOpcode());
     }
 }
