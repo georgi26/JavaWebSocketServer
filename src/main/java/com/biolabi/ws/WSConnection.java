@@ -6,13 +6,14 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Scanner;
 
-public class WSConnection implements Runnable{
+public class WSConnection implements Runnable {
 
-    private static final String SEC_WEB_SOCKET_KEY="Sec-WebSocket-Key:";
-    private static final String MAGIC_WS_STRING="258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+    private static final String SEC_WEB_SOCKET_KEY = "Sec-WebSocket-Key:";
+    private static final String MAGIC_WS_STRING = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
 
     private Socket socket;
@@ -20,7 +21,9 @@ public class WSConnection implements Runnable{
 
     private boolean closed = false;
 
-    public WSConnection(Socket socket){
+    private ArrayList<ConnectionListener> connectionListeners = new ArrayList<ConnectionListener>(10);
+
+    public WSConnection(Socket socket) {
         this.socket = socket;
     }
 
@@ -36,6 +39,10 @@ public class WSConnection implements Runnable{
         }
     }
 
+    public void addConnectionListener(ConnectionListener listener) {
+        this.connectionListeners.add(listener);
+    }
+
     public String readSecWebSocketKey(InputStream is) throws WSException {
         String data = null;
         try {
@@ -43,13 +50,13 @@ public class WSConnection implements Runnable{
         } catch (IOException e) {
             throw new WSException(e);
         }
-        String [] lines = data.split("\n");
+        String[] lines = data.split("\n");
 
-        for(String line : lines){
+        for (String line : lines) {
             line = line.trim();
-            if(line.startsWith(SEC_WEB_SOCKET_KEY)){
-                String [] secKeyLines =  line.split(":");
-                if(secKeyLines.length == 2){
+            if (line.startsWith(SEC_WEB_SOCKET_KEY)) {
+                String[] secKeyLines = line.split(":");
+                if (secKeyLines.length == 2) {
                     return secKeyLines[1].trim();
                 }
             }
@@ -58,46 +65,58 @@ public class WSConnection implements Runnable{
     }
 
     public void readDecodeBytes(InputStream is) throws IOException, WSException {
-        byte [] buffer = new byte[1000];
-        int read = -1;
-        while(!closed && (read = is.read(buffer)) > 0){
-            System.out.println("\n");
+        byte[] buffer = new byte[1000];
+
+        while (!closed && is.read(buffer) > 0) {
             WSDecoder decoder = new WSDecoder((buffer));
-            if(decoder.getOpcode() == Opcode.CLOSE){
-                this.close();
-                break;
-            }
-            int [] frame = decoder.getFrame();
-            System.out.println(decoder.getText());
-            for(int i = 0 ; i < read; i++){
-                int uByte = frame[i];
-                System.out.print(" "+uByte+" ");
+            switch (decoder.getOpcode()) {
+                case CONT -> {
+                    throw new RuntimeException("Continue opcode is not implemented");
+                }
+                case TEXT -> {
+                    String textMessage = decoder.getText();
+                    for (ConnectionListener listener : connectionListeners) {
+                        listener.onTextMessage(textMessage, this);
+                    }
+                }
+                case BINARY -> {
+                    int[] data = decoder.getBinaryData();
+                    for (ConnectionListener listener : connectionListeners) {
+                        listener.onBinaryMessage(data, this);
+                    }
+                }
+                case CLOSE -> {
+                    this.close();
+                }
             }
         }
     }
 
-    public void close() throws WSException{
+    public void close() throws WSException {
         this.closed = true;
         try {
             this.socket.close();
+            for (ConnectionListener listener : connectionListeners) {
+                listener.onClose(this);
+            }
         } catch (IOException e) {
             throw new WSException(e);
         }
     }
 
-    private void decodeFirst(int first){
+    private void decodeFirst(int first) {
 
     }
 
     private String readStream(InputStream in) throws IOException {
-        Scanner scanner = new Scanner(in,"UTF-8");
+        Scanner scanner = new Scanner(in, "UTF-8");
         String data = scanner.useDelimiter("\\r\\n\\r\\n").next();
         System.out.println(data);
         return data;
     }
 
-    private void sendHandShake(OutputStream out) throws WSException{
-        try{
+    private void sendHandShake(OutputStream out) throws WSException {
+        try {
             byte[] response = ("HTTP/1.1 101 Switching Protocols\r\n"
                     + "Connection: Upgrade\r\n"
                     + "Upgrade: websocket\r\n"
@@ -105,7 +124,10 @@ public class WSConnection implements Runnable{
                     + Base64.getEncoder().encodeToString(MessageDigest.getInstance("SHA-1").digest((this.socketKey + MAGIC_WS_STRING).getBytes("UTF-8")))
                     + "\r\n\r\n").getBytes("UTF-8");
             out.write(response, 0, response.length);
-        }catch(IOException | NoSuchAlgorithmException e){
+            for (ConnectionListener listener : connectionListeners) {
+                listener.onConnect(this);
+            }
+        } catch (IOException | NoSuchAlgorithmException e) {
             throw new WSException(e);
         }
 

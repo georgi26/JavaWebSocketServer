@@ -24,6 +24,27 @@ public class WSServer {
             Socket socket = null;
             while ((socket = serverSocket.accept()) != null) {
                 WSConnection wsConnection = new WSConnection(socket);
+                wsConnection.addConnectionListener(new ConnectionListener() {
+                    @Override
+                    public void onConnect(WSConnection wsConnection) {
+                        System.out.println("Connected");
+                    }
+
+                    @Override
+                    public void onClose(WSConnection wsConnection) {
+                        System.out.println("ConnectionClosed");
+                    }
+
+                    @Override
+                    public void onTextMessage(String payload, WSConnection wsConnection) {
+                        System.out.println(payload);
+                    }
+
+                    @Override
+                    public void onBinaryMessage(int[] data, WSConnection wsConnection) {
+                        System.out.println(data);
+                    }
+                });
                 connections.add(wsConnection);
                 new Thread(wsConnection).start();
             }
