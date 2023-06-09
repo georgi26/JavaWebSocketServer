@@ -23,6 +23,8 @@ public class WSConnection implements Runnable {
 
     private ArrayList<ConnectionListener> connectionListeners = new ArrayList<ConnectionListener>(10);
 
+    private WSEncoder wsEncoder = new WSEncoder();
+
     public WSConnection(Socket socket) {
         this.socket = socket;
     }
@@ -104,8 +106,14 @@ public class WSConnection implements Runnable {
         }
     }
 
-    private void decodeFirst(int first) {
-
+    public void sendText(String text) throws WSException {
+        try {
+            byte[] encoded = wsEncoder.encodeText(text);
+            OutputStream out = socket.getOutputStream();
+            out.write(encoded);
+        } catch (IOException e) {
+            throw new WSException(e);
+        }
     }
 
     private String readStream(InputStream in) throws IOException {

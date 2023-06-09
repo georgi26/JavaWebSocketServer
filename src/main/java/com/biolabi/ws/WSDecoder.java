@@ -39,8 +39,12 @@ public class WSDecoder {
         }
         int second = this.frame[1];
         String binary = Integer.toBinaryString(second);
-        String binaryLength = binary.substring(1);
-        return Integer.parseInt(binaryLength, 2);
+        int result = second;
+        if(binary.length() > 7){
+            String binaryLength = binary.substring(1);
+            result = Integer.parseInt(binaryLength, 2);
+        }
+        return result;
     }
 
     public int getMask() throws WSException {
@@ -49,11 +53,23 @@ public class WSDecoder {
         }
         int second = this.frame[1];
         String binary = Integer.toBinaryString(second);
-        String binaryLength = binary.substring(0, 1);
-        return Integer.parseInt(binaryLength, 2);
+        int result = 0;
+        if(binary.length() == 8) {
+            String binaryLength = binary.substring(0, 1);
+            result = Integer.parseInt(binaryLength, 2);
+        }
+        return result;
     }
 
     public int[] getBinaryData() throws WSException {
+        if(getMask() == 1){
+            return getBinaryDataMasked();
+        }else{
+            return getBinaryDataUnMasked();
+        }
+    }
+
+    public int [] getBinaryDataMasked()  throws WSException{
         int keysEnd = XOR_KEYS_LENGTH + 2;
         if (this.frame.length < keysEnd) {
             throw new WSException("Invalid frame with data expect key before data");
@@ -72,6 +88,20 @@ public class WSDecoder {
         for (int i = keysEnd; i < dataEnd; i++) {
             data[dataIndex] = this.frame[i] ^ keys[dataIndex & 0x3];
             dataIndex++;
+        }
+        return data;
+    }
+
+    public int [] getBinaryDataUnMasked()  throws WSException{
+        int keysEnd = 2;
+        if (this.frame.length < keysEnd) {
+            throw new WSException("Invalid frame with data expect key before data");
+        }
+        int dataLength = getLength();
+        int dataEnd = keysEnd + dataLength;
+        int[] data = new int[dataLength];
+        for (int i = keysEnd; i < dataEnd; i++) {
+            data[i-keysEnd] = this.frame[i];
         }
         return data;
     }

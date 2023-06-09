@@ -33,11 +33,17 @@ public class WSServer {
                     @Override
                     public void onClose(WSConnection wsConnection) {
                         System.out.println("ConnectionClosed");
+                        removeConnection((wsConnection));
                     }
 
                     @Override
                     public void onTextMessage(String payload, WSConnection wsConnection) {
                         System.out.println(payload);
+                        try {
+                            wsConnection.sendText("Hi We Reseived your message");
+                        } catch (WSException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     @Override
@@ -51,6 +57,10 @@ public class WSServer {
         } catch (IOException e) {
             throw new WSException(e);
         }
+    }
+
+    public synchronized void removeConnection(WSConnection connection) {
+        connections.remove(connection);
     }
 
 

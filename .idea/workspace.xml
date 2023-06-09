@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50280a45-e517-4ef6-a04d-cf84f4f649a6" name="Changes" comment="Move Opcode to Top Level">
+    <list default="true" id="50280a45-e517-4ef6-a04d-cf84f4f649a6" name="Changes" comment="Add Connection listeners">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSDecoder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/biolabi/ws/WSServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/WSServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WSServerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,8 +56,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -67,17 +70,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveInnerDialog.RECENTS_KEY">
       <recent name="com.biolabi.ws" />
@@ -141,6 +144,30 @@
       <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
+    <configuration name="WSServerTest.testEncodeFrame" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;WSServerTest.testEncodeFrame&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
     <configuration name="WSServerTest.testScanner" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -168,6 +195,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.WSServerTest.testEncodeFrame" />
         <item itemvalue="Gradle.WSServerTest.testScanner" />
         <item itemvalue="Gradle.JavaWebSocketServer::home:georgi:Documents:Devel:JavaWebSocketServer [jar]" />
         <item itemvalue="Gradle.JavaWebSocketServer::home:georgi:Documents:Devel:JavaWebSocketServer [build]" />
@@ -190,11 +218,37 @@
       <option name="project" value="LOCAL" />
       <updated>1686163345584</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add Connection listeners">
+      <created>1686205089601</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1686205089601</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add Connection listeners">
+      <created>1686205098571</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1686205098571</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Move Opcode to Top Level" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move Opcode to Top Level" />
+    <MESSAGE value="Add Connection listeners" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Connection listeners" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$USER_HOME$/Documents/Devel/JavaWebSocketServer/src/main/java/com/biolabi/ws/WSEncoder.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
